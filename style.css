@@ -1,0 +1,168 @@
+/* Общие стили и переменные */
+:root {
+    --brand-red: #c70101;
+    --text-dark: #0d0d0d;
+    --bg-gray: #f6f6f6;
+}
+/* Переменные и сбросы */
+:root {
+    --brand-red: #c70101;
+    --brand-red-hover: #a00101;
+}
+
+/* 3D Переворот карточек */
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+.transform-style-3d {
+    transform-style: preserve-3d;
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+    transform: rotateY(180deg);
+}
+
+/* Анимация пульсации для иконок */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+
+.animate-pulse-custom {
+    animation: heartbeat 1.5s infinite ease-in-out;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Roboto', sans-serif; color: var(--text-dark); }
+.container { max-width: 950px; margin: 0 auto; padding: 0 15px; }
+
+/* Типографика */
+.title { font-size: 30px; font-weight: 700; text-align: center; text-transform: uppercase; margin-bottom: 30px; }
+.title_left { text-align: left; color: #fff; font-size: 36px; line-height: 1.2; }
+
+/* Кнопки */
+.btn { background-color: var(--brand-red); color: #fff; border: none; text-transform: uppercase; font-weight: 500; cursor: pointer; border-radius: 5px; transition: 0.3s all; }
+.btn:hover { background-color: #a00101; }
+.btn_small { width: 150px; height: 30px; font-size: 12px; }
+.btn_main { width: 300px; height: 50px; font-size: 16px; margin-top: 65px; }
+.btn_submit { width: 100%; height: 55px; font-size: 16px; }
+
+/* Шапка */
+.header { position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); z-index: 50; padding: 15px 0; border-bottom: 1px solid #eee; }
+.header__wrapper { display: flex; justify-content: space-between; align-items: center; }
+.logo { display: flex; align-items: center; text-decoration: none; color: var(--text-dark); }
+.logo__icon { width: 40px; height: 40px; background: var(--brand-red); border-radius: 100%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 20px; margin-right: 10px; }
+.logo__text { display: flex; flex-direction: column; }
+.logo__title { font-size: 20px; font-weight: 900; text-transform: uppercase; }
+.logo__subtitle { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+.official { text-align: center; font-size: 12px; color: #666; }
+.official strong { display: block; font-size: 18px; color: var(--text-dark); margin-top: 5px; }
+.contacts { display: flex; flex-direction: column; align-items: flex-end; }
+.contacts__phone { font-size: 18px; font-weight: 700; color: var(--text-dark); text-decoration: none; display: block; }
+.contacts__time { font-size: 12px; color: #666; margin-bottom: 5px; }
+
+/* Промо-блок */
+.promo { min-height: 650px; padding: 90px 0; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('bg.jpg') center/cover; }
+.promo__wrapper { display: flex; flex-direction: column; align-items: flex-end; text-align: right; color: #fff; }
+.promo__title { font-size: 42px; font-weight: 700; text-transform: uppercase; }
+.promo__subtitle { font-size: 24px; font-weight: 300; text-transform: uppercase; margin-bottom: 60px; }
+.promo__icons { display: flex; justify-content: flex-end; gap: 40px; }
+.promo__icon { display: flex; flex-direction: column; align-items: center; text-align: center; width: 110px; font-size: 14px; font-weight: 500; }
+.promo__icon i { font-size: 40px; margin-bottom: 20px; }
+.promo__link { margin-top: 15px; font-size: 14px; font-weight: 500; }
+.promo__link a { color: #fff; text-decoration: underline; text-transform: uppercase; }
+
+/* Преимущества */
+.advantages { padding: 70px 0; background-color: var(--bg-gray); }
+.advantages__wrapper { display: flex; justify-content: space-between; gap: 30px; text-align: center; }
+.advantages__item { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.advantages__icon { width: 70px; height: 70px; color: var(--brand-red); font-size: 45px; margin-bottom: 20px; }
+.advantages__icon_animated { animation: heartbeat 1.5s ease infinite; }
+.advantages__item h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+.advantages__item p { font-size: 14px; color: #555; line-height: 1.5; }
+.advantages__item a { color: var(--brand-red); text-decoration: underline; }
+
+/* Формы и консультация */
+.consultation { padding: 100px 0; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('elen.jpg') center/cover; }
+.consultation__desc { color: #fff; font-size: 20px; margin-bottom: 30px; }
+.form { display: flex; flex-direction: column; width: 300px; gap: 15px; }
+.form input { height: 50px; border-radius: 5px; background: #fff; border: none; padding: 0 20px; font-size: 14px; outline: none; }
+
+/* Слайдер */
+.carousel-section { padding: 80px 0; }
+.carousel { position: relative; width: 80%; margin: 0 auto; overflow: hidden; }
+.carousel__inner { display: flex; transition: transform 0.5s ease; }
+.carousel__slide { min-width: 100%; display: flex; justify-content: center; }
+.carousel__slide img { max-height: 400px; object-fit: contain; }
+.carousel__btn { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: #fff; border: none; border-radius: 50%; box-shadow: 0 2px 10px rgba(0,0,0,0.1); font-size: 20px; cursor: pointer; z-index: 10; }
+.carousel__btn_prev { left: -20px; }
+.carousel__btn_next { right: -20px; }
+
+/* Каталог и карточки */
+.catalog { padding-bottom: 100px; }
+.catalog__tabs { display: flex; justify-content: center; gap: 10px; list-style: none; margin-bottom: 60px; }
+.catalog__tab { width: 220px; height: 50px; border: 2px solid #d0d0d0; text-align: center; line-height: 48px; text-transform: uppercase; font-size: 18px; font-weight: 500; color: #6b6b6b; transform: skewX(-25deg); cursor: pointer; transition: 0.3s all; }
+.catalog__tab div { transform: skewX(25deg); }
+.catalog__tab_active { background-color: var(--brand-red); color: #fff; border-color: var(--brand-red); }
+.catalog__content { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+
+/* 3D-Карточка пульсометра */
+.catalog-item { width: 300px; height: 440px; perspective: 1000px; }
+.catalog-item__wrapper { width: 100%; height: 100%; position: relative; transition: transform 0.6s; transform-style: preserve-3d; }
+.catalog-item.active .catalog-item__wrapper { transform: rotateY(180deg); }
+.catalog-item__front, .catalog-item__back { width: 100%; height: 100%; position: absolute; top: 0; left: 0; backface-visibility: hidden; background: #fff; border: 2px solid #e8e8e8; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+.catalog-item__back { transform: rotateY(180deg); }
+
+.catalog-item__img { max-width: 100%; height: 200px; object-fit: contain; display: block; margin: 0 auto 15px; }
+.catalog-item__title { font-size: 16px; font-weight: 700; text-align: center; margin-bottom: 10px; }
+.catalog-item__desc { font-size: 14px; text-align: center; color: #0d0d0d; }
+.catalog-item__link { display: block; text-align: center; color: var(--brand-red); font-size: 14px; font-weight: 500; text-decoration: underline; cursor: pointer; margin-top: 10px; }
+.catalog-item__footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e8e8e8; padding-top: 15px; margin-top: 15px; }
+.catalog-item__old-price { font-size: 14px; color: #555; text-decoration: line-through; display: block; }
+.catalog-item__price { font-size: 20px; font-weight: 700; }
+.catalog-item__list { list-style: none; margin-bottom: 20px; }
+.catalog-item__list li { position: relative; font-size: 14px; color: #555; margin-bottom: 10px; padding-left: 15px; }
+.catalog-item__list li::before { content: ''; position: absolute; width: 5px; height: 5px; background-color: var(--brand-red); left: 0; top: 7px; }
+
+/* Подвал */
+.footer { height: 630px; position: relative; background: url('karta.jpg') center/cover; }
+.footer__info { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 460px; height: 270px; background-color: var(--brand-red); padding: 50px 68px 60px 68px; text-align: center; color: #fff; }
+.footer__info address { font-size: 20px; font-weight: 500; font-style: normal; margin-bottom: 20px; }
+.footer__phone { display: block; color: #fff; font-size: 20px; font-weight: 700; margin-bottom: 35px; text-decoration: none; }
+.footer__social { display: flex; justify-content: center; gap: 15px; }
+.footer__social-item { width: 50px; height: 50px; border: 2px solid #fff; border-radius: 100%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 20px; transition: 0.3s; }
+.footer__social-item:hover { background-color: #fff; color: var(--brand-red); }
+
+/* Модальные окна */
+.overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.56); z-index: 100; display: none; justify-content: center; align-items: center; }
+.modal { background: #fff; padding: 40px; position: relative; width: 380px; text-align: center; border-radius: 5px; }
+.modal_mini { width: 300px; padding: 30px; }
+.modal__close { position: absolute; top: 10px; right: -40px; font-size: 40px; color: var(--brand-red); cursor: pointer; line-height: 20px; }
+.modal__subtitle { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+.modal__desc { font-size: 14px; font-weight: 500; margin-bottom: 25px; }
+.modal__icon { font-size: 50px; color: green; margin-bottom: 15px; }
+.modal .form { width: 100%; }
+.modal .form input { border: 1px solid #ccc; }
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+/* Медиа-запросы для адаптива (кратко) */
+@media (max-width: 768px) {
+    .header__wrapper { flex-direction: column; gap: 15px; }
+    .promo__wrapper { align-items: center; text-align: center; }
+    .promo__icons { justify-content: center; }
+    .advantages__wrapper { flex-direction: column; align-items: center; }
+    .catalog__tabs { flex-direction: column; align-items: center; }
+    .modal__close { right: 10px; top: 10px; }
+}

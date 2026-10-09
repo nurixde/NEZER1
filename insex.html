@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunSmart - Подбор пульсометров</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandRed: '#c70101',
+                        brandRedHover: '#a00101',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts, Font Awesome & Flag Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="bg-white text-gray-800 antialiased font-['Roboto'] selection:bg-brandRed selection:text-white">
+
+    <!-- Header -->
+    <header class="w-full py-4 px-4 sm:px-8 bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 bg-brandRed rounded-full flex items-center justify-center text-white font-black text-xl shadow-md group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-black tracking-wider uppercase text-gray-900 leading-tight">RunSmart</span>
+                    <span class="text-[10px] text-gray-500 font-medium uppercase tracking-widest" data-lang="subtitle">Пульсометры</span>
+                </div>
+            </a>
+
+            <div class="hidden md:flex flex-col text-center">
+                <span class="text-xs text-gray-500 font-normal" data-lang="dealer">Официальный дилер</span>
+                <span class="text-sm font-bold text-gray-800 tracking-wide">Garmin, Polar, Suunto</span>
+            </div>
+
+            <div class="flex items-center gap-4 sm:gap-6">
+                
+                <!-- Выпадающий список выбора языков с флагами -->
+                <div class="relative">
+                    <button onclick="toggleLangDropdown()" id="langDropdownBtn" class="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-bold py-2 px-3 rounded-lg shadow-sm transition-all focus:outline-none">
+                        <span id="currentFlag" class="fi fi-ru text-base"></span>
+                        <span id="currentLangLabel">RU</span>
+                        <i class="fa-solid fa-chevron-down text-[10px] text-gray-500 ml-1"></i>
+                    </button>
+
+                    <!-- Меню языков -->
+                    <div id="langMenu" class="hidden absolute right-0 mt-2 w-36 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50">
+                        <button onclick="selectLanguage('ru')" class="w-full flex items-center gap-3 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brandRed transition-colors">
+                            <span class="fi fi-ru text-base"></span>
+                            <span>Русский</span>
+                        </button>
+                        <button onclick="selectLanguage('kk')" class="w-full flex items-center gap-3 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brandRed transition-colors">
+                            <span class="fi fi-kz text-base"></span>
+                            <span>Қазақша</span>
+                        </button>
+                        <button onclick="selectLanguage('en')" class="w-full flex items-center gap-3 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brandRed transition-colors">
+                            <span class="fi fi-gb text-base"></span>
+                            <span>English</span>
+                        </button>
+                        <button onclick="selectLanguage('ja')" class="w-full flex items-center gap-3 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:text-brandRed transition-colors">
+                            <span class="fi fi-jp text-base"></span>
+                            <span>日本語</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-end">
+                    <a href="tel:+74999228974" class="text-base sm:text-lg font-bold text-gray-900 hover:text-brandRed transition-colors">
+                        +7 (499) 922-89-74
+                    </a>
+                    <span class="text-xs text-gray-400" data-lang="workHours">Пн-Пт: с 09:00 до 21:00</span>
+                </div>
+                <button onclick="openModal('consultationModal')" class="bg-brandRed hover:bg-brandRedHover text-white text-xs sm:text-sm font-medium uppercase tracking-wider py-2.5 px-5 rounded shadow-md hover:shadow-lg transition-all active:scale-95" data-lang="callBtn">
+                    Заказать звонок
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[650px] flex items-center justify-center text-white overflow-hidden bg-cover bg-center bg-no-repeat" 
+             style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('png/bg.png');">
+        <div class="max-w-7xl mx-auto px-4 w-full py-20 flex flex-col items-end text-right">
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-wider drop-shadow-lg mb-2" data-lang="heroTitle">
+                Подбор пульсометра
+            </h1>
+            <h2 class="text-lg sm:text-2xl font-light tracking-wide drop-shadow-md mb-12" data-lang="heroSubtitle">
+                с учетом Вашего уровня подготовки
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-xl mb-12 text-center sm:text-right">
+                <div class="flex flex-col sm:items-end items-center gap-3">
+                    <div class="w-14 h-14 border-2 border-white/80 rounded-full flex items-center justify-center text-2xl shadow-inner bg-black/20 backdrop-blur-sm">
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+                    <span class="text-sm font-medium leading-snug drop-shadow" data-lang="feature1">Время подбора:<br>10 минут</span>
+                </div>
+                <div class="flex flex-col sm:items-end items-center gap-3">
+                    <div class="w-14 h-14 border-2 border-white/80 rounded-full flex items-center justify-center text-2xl shadow-inner bg-black/20 backdrop-blur-sm">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <span class="text-sm font-medium leading-snug drop-shadow" data-lang="feature2">Бесплатная<br>доставка</span>
+                </div>
+                <div class="flex flex-col sm:items-end items-center gap-3">
+                    <div class="w-14 h-14 border-2 border-white/80 rounded-full flex items-center justify-center text-2xl shadow-inner bg-black/20 backdrop-blur-sm">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                    </div>
+                    <span class="text-sm font-medium leading-snug drop-shadow" data-lang="feature3">Ответим на<br>все вопросы</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center gap-4">
+                <a href="#consultation" class="bg-brandRed hover:bg-brandRedHover text-white text-base font-bold uppercase tracking-wider py-4 px-8 rounded shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 inline-block text-center" data-lang="consultBtn">
+                    Заказать консультацию
+                </a>
+                <span class="text-sm font-light"><span data-lang="orText">или</span> <a href="#catalog" class="underline hover:text-brandRed transition-colors font-medium" data-lang="goToCatalog">перейти в каталог</a></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="py-20 px-4 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-16 uppercase tracking-wide" data-lang="advTitle">
+                Наши преимущества
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-20 h-20 bg-brandRed/10 text-brandRed rounded-full flex items-center justify-center text-3xl mb-6">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3" data-lang="adv1Title">Делимся опытом</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed" data-lang="adv1Desc">
+                        Наши сотрудники всегда готовы поделиться своим опытом, так как сами бегают полумарафоны, переплыли Босфор и готовятся к триатлону!
+                    </p>
+                </div>
+                <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-20 h-20 bg-brandRed/10 text-brandRed rounded-full flex items-center justify-center text-3xl mb-6 animate-pulse">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3" data-lang="adv2Title">Заботимся о здоровье</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed" data-lang="adv2Desc">
+                        Мы работаем для того, чтобы Ваши занятия спортом шли на пользу Вашему здоровью и в радость Вам и Вашим близким!
+                    </p>
+                </div>
+                <div class="flex flex-col items-center p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-20 h-20 bg-brandRed/10 text-brandRed rounded-full flex items-center justify-center text-3xl mb-6">
+                        <i class="fa-solid fa-shoe-prints"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-3" data-lang="adv3Title">Учим бегать</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed" data-lang="adv3Desc">
+                        Помогаем с обучением правильной технике бега! Дружим с крупнейшей школой бега в России - I LOVE RUNNING.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation Banner Section -->
+    <section id="consultation" class="relative py-24 px-4 bg-cover bg-center bg-no-repeat text-white overflow-hidden" 
+             style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('png/elen.jpg');">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-2xl sm:text-4xl font-bold uppercase tracking-wider mb-4 leading-tight" data-lang="consultTitle">
+                Получите бесплатную консультацию<br>по подбору пульсометра
+            </h2>
+            <p class="text-base sm:text-lg font-light text-gray-200 mb-10" data-lang="consultSub">
+                Просто заполните форму заявки<br>и мы перезвоним вам в течение 10 минут
+            </p>
+
+            <form id="consultationForm" onsubmit="handleFormSubmit(event)" class="flex flex-col gap-4 max-w-md">
+                <input type="text" placeholder="Ваше имя" required class="px-4 py-3.5 rounded bg-white text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brandRed">
+                <input type="tel" placeholder="Ваш телефон" required class="px-4 py-3.5 rounded bg-white text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brandRed">
+                <input type="email" placeholder="Ваш E-mail" required class="px-4 py-3.5 rounded bg-white text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brandRed">
+                <button type="submit" class="mt-2 bg-brandRed hover:bg-brandRedHover text-white uppercase font-bold py-4 px-8 rounded shadow-lg transition-all text-base tracking-wider" data-lang="consultBtn">
+                    Заказать консультацию
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Carousel Section (3 слайда) -->
+    <section class="py-20 px-4 bg-white overflow-hidden">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="relative flex items-center justify-center">
+                <div class="w-full overflow-hidden rounded-xl">
+                    <div id="carouselTrack" class="flex transition-transform duration-500 ease-in-out w-full">
+                        <div class="w-full flex-shrink-0 flex justify-center items-center">
+                            <img src="png/Слайд №1.png" alt="Polar RC3 GPS" class="max-h-[380px] object-contain drop-shadow-2xl rounded-lg mx-auto">
+                        </div>
+                        <div class="w-full flex-shrink-0 flex justify-center items-center">
+                            <img src="png/Слайд №2.png" alt="Polar Smart Watch" class="max-h-[380px] object-contain drop-shadow-2xl rounded-lg mx-auto">
+                        </div>
+                        <div class="w-full flex-shrink-0 flex justify-center items-center">
+                            <img src="png/Слайд №3.jpg" alt="Polar M400" class="max-h-[380px] object-contain drop-shadow-2xl rounded-lg mx-auto">
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="prevSlide()" class="absolute left-0 sm:left-4 z-10 w-12 h-12 bg-white/80 hover:bg-white text-gray-800 rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-all text-xl">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button onclick="nextSlide()" class="absolute right-0 sm:right-4 z-10 w-12 h-12 bg-white/80 hover:bg-white text-gray-800 rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-all text-xl">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section id="catalog" class="py-20 px-4 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-12 uppercase tracking-wide" data-lang="catalogTitle">
+                Каталог пульсометров
+            </h2>
+
+            <div class="flex justify-center items-center gap-4 mb-16 flex-wrap">
+                <button onclick="switchTab('fitness')" id="tab-fitness" class="tab-btn px-8 py-3 font-medium uppercase tracking-wider text-sm rounded bg-brandRed text-white shadow-md transition-all" data-lang="tabFitness">
+                    Для фитнеса
+                </button>
+                <button onclick="switchTab('running')" id="tab-running" class="tab-btn px-8 py-3 font-medium uppercase tracking-wider text-sm rounded bg-white text-gray-700 shadow-sm hover:bg-gray-100 transition-all" data-lang="tabRunning">
+                    Для бега
+                </button>
+                <button onclick="switchTab('triathlon')" id="tab-triathlon" class="tab-btn px-8 py-3 font-medium uppercase tracking-wider text-sm rounded bg-white text-gray-700 shadow-sm hover:bg-gray-100 transition-all" data-lang="tabTriathlon">
+                    Для триатлона
+                </button>
+            </div>
+
+            <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Динамические карточки -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-16 uppercase tracking-wide" data-lang="reviewsTitle">
+                Отзывы клиентов
+            </h2>
+            <div class="space-y-16">
+                <div class="flex flex-col sm:flex-row gap-8 items-start pb-12 border-b border-gray-100">
+                    <img src="png/sla.png" alt="Ирина Иванченко" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover shadow-md flex-shrink-0 mx-auto sm:mx-0">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Ирина Иванченко</h3>
+                        <span class="text-xs text-gray-400 block mb-3 font-medium">2 марафона</span>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            Не было никакого опыта раньше, чем выбрать пульсометр. Обратилась к ребятам из RunSmart - подобрали пульсометр, который подошел именно под мои цели и финансовые возможности. Через некоторое время решила обновить гаджет - не задумываясь обратилась туда же. <br><br>Новые цели — новый гаджет!<br>Спасибо, RunSmart!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-8 items-start pb-12 border-b border-gray-100">
+                    <img src="png/sla2.png" alt="Иван Семёнов" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover shadow-md flex-shrink-0 mx-auto sm:mx-0">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Иван Семёнов</h3>
+                        <span class="text-xs text-gray-400 block mb-3 font-medium">1 марафон</span>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            Крутая штука - пульсометр. Обычно без них бегал. Оказывается, бегал неправильно. Снизил пульс, увеличил скорость бега - и приятно удивлен! Тренировки стали интереснее, а результаты полезнее.<br><br>Спасибо RunSmart за отличную консультацию и быструю доставку!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-8 items-start">
+                    <img src="png/sla1.png" alt="Юлия Дашкина" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover shadow-md flex-shrink-0 mx-auto sm:mx-0">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900">Юлия Дашкина</h3>
+                        <span class="text-xs text-gray-400 block mb-3 font-medium">2 марафона</span>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            Долго не могла купить пульсометр, т.к. до этого ничего не знала о них и боялась переплатить. От друзей услышала про RunSmart, решила позвонить и проконсультироваться.<br><br>Ребята очень вежливо объяснили все нюансы, подобрали модель под мои задачи и даже сделали скидку! Теперь бегаю только с ним и всем рекомендую!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer с Google Maps -->
+    <footer class="relative h-[500px] w-full overflow-hidden">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2244.4022818957813!2d37.568325315931204!3d55.7602019805561!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a3260c609bd%3A0x8683525287f32997!2z0KPQu9C40YbQsCDQmtGA0LDRgdC90LDRjyDQn9GA0LXRgdC90Y8sIDQ00YExLCDQnNC-0YHQutCy0LAsINCg0L7RgdGB0LjRjywgMTIzMDIy!5e0!3m2!1sru!2skz!4v1680000000000!5m2!1sru!2skz" 
+            class="w-full h-full border-0" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+
+        <div class="absolute top-8 left-1/2 -translate-x-1/2 sm:top-10 max-w-md w-[90%] bg-brandRed text-white p-8 sm:p-10 rounded-xl shadow-2xl text-center z-10">
+            <address class="not-italic mb-6">
+                <span class="block text-lg font-medium mb-1" data-lang="address">Москва, Красная Пресня, ул., 44 строение 3</span>
+                <a href="tel:+74999228974" class="text-xl sm:text-2xl font-black tracking-wider hover:underline block mt-3">
+                    +7 (499) 922-89-74
+                </a>
+            </address>
+
+            <div class="flex justify-center items-center gap-4">
+                <a href="#" class="w-12 h-12 border-2 border-white/80 rounded-full flex items-center justify-center text-xl hover:bg-white hover:text-brandRed transition-all">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="#" class="w-12 h-12 border-2 border-white/80 rounded-full flex items-center justify-center text-xl hover:bg-white hover:text-brandRed transition-all">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="#" class="w-12 h-12 border-2 border-white/80 rounded-full flex items-center justify-center text-xl hover:bg-white hover:text-brandRed transition-all">
+                    <i class="fa-brands fa-vk"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Кнопка «Наверх» -->
+    <button id="scrollTopBtn" onclick="scrollToTop()" class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-brandRed hover:bg-brandRedHover text-white rounded-full flex items-center justify-center shadow-2xl opacity-0 pointer-events-none transition-all duration-300 hover:scale-110">
+        <i class="fa-solid fa-arrow-up text-xl"></i>
+    </button>
+
+    <!-- Модальные окна -->
+    <div id="consultationModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl max-w-md w-full p-8 relative shadow-2xl">
+            <button onclick="closeModal('consultationModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            <h3 class="text-xl font-bold text-center text-gray-900 mb-2 uppercase" data-lang="modalSub">Просто заполните форму заявки</h3>
+            <p class="text-sm text-center text-gray-500 mb-6" data-lang="modalDesc">и мы перезвоним вам в течение 10 минут</p>
+            <form onsubmit="handleModalSubmit(event, 'consultationModal')" class="flex flex-col gap-4">
+                <input type="text" placeholder="Ваше имя" required class="px-4 py-3 rounded border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brandRed">
+                <input type="tel" placeholder="Ваш телефон" required class="px-4 py-3 rounded border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brandRed">
+                <input type="email" placeholder="Ваш E-mail" required class="px-4 py-3 rounded border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brandRed">
+                <button type="submit" class="bg-brandRed hover:bg-brandRedHover text-white font-bold uppercase py-3.5 rounded shadow transition-all" data-lang="consultBtn">Заказать консультацию</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="buyModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl max-w-md w-full p-8 relative shadow-2xl">
+            <button onclick="closeModal('buyModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            <h3 id="buyModalTitle" class="text-xl font-bold text-center text-gray-900 mb-2 uppercase">Ваш заказ: Пульсометр</h3>
+            <p class="text-sm text-center text-gray-500 mb-6">Заполните данные для оформления покупки</p>
+            <form onsubmit="handleModalSubmit(event, 'buyModal')" class="flex flex-col gap-4">
+                <input type="text" placeholder="Ваше имя" required class="px-4 py-3 rounded border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brandRed">
+                <input type="tel" placeholder="Ваш телефон" required class="px-4 py-3 rounded border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brandRed">
+                <input type="email" placeholder="Ваш E-mail" required class="px-4 py-3 rounded border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brandRed">
+                <button type="submit" class="bg-brandRed hover:bg-brandRedHover text-white font-bold uppercase py-3.5 rounded shadow transition-all" data-lang="buyBtn">Купить товар</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="successModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-xl max-w-sm w-full p-8 relative shadow-2xl text-center">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Спасибо за заявку!</h3>
+            <p class="text-sm text-gray-600 mb-6">Наш менеджер свяжется с вами в течение 10 минут.</p>
+            <button onclick="closeModal('successModal')" class="bg-brandRed hover:bg-brandRedHover text-white font-bold uppercase py-2.5 px-6 rounded shadow transition-all">Ок</button>
+        </div>
+    </div>
+</body>
+</html>
